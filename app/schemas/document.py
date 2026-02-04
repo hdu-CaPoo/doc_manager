@@ -2,9 +2,11 @@ from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
 
+
 # 1. 基础信息
 class DocumentBase(BaseModel):
-    pass # 上传时主要靠 Form Data，这里暂时为空
+    pass  # 上传时主要靠 Form Data，这里暂时为空
+
 
 # 2. 返回给前端的信息
 class DocumentOut(DocumentBase):

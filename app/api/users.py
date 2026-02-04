@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException, Body
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.api.deps import get_db, get_current_user
 from app.models.user import User
 from app.crud.user import get_user_by_id, update_password
-from pydantic import BaseModel, constr
+from pydantic import BaseModel
 
 from fastapi import UploadFile, File
 from app.schemas.user import UserOut
@@ -12,23 +12,27 @@ from app.crud.user import update_avatar
 
 router = APIRouter()
 
+
 # 定义请求体：只需要新密码
 class AdminResetPassword(BaseModel):
-    new_password: str # 限制一下长度比如 min_length=6
+    new_password: str  # 限制一下长度比如 min_length=6
+
 
 @router.put("/{user_id}/reset-password")
 def reset_password_by_admin(
     user_id: int,
     password_in: AdminResetPassword,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ):
     """
     平台管理员强制重置用户密码
     """
     # 1. 权限检查：只有超级管理员 (superuser) 能做这个操作
     if not current_user.is_superuser:
-        raise HTTPException(status_code=403, detail="权限不足，只有平台管理员可执行此操作")
+        raise HTTPException(
+            status_code=403, detail="权限不足，只有平台管理员可执行此操作"
+        )
 
     # 2. 检查目标用户是否存在
     target_user = get_user_by_id(db, user_id)
@@ -40,11 +44,12 @@ def reset_password_by_admin(
 
     return {"msg": f"用户 {target_user.nickname or target_user.email} 的密码已重置"}
 
+
 @router.post("/me/avatar", response_model=UserOut)
 def upload_my_avatar(
     file: UploadFile = File(...),
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ):
     """
     用户上传/更新自己的头像
@@ -60,5 +65,5 @@ def upload_my_avatar(
 
     # 2. 更新数据库
     updated_user = update_avatar(db, current_user, saved_path)
-    
+
     return updated_user

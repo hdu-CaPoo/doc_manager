@@ -19,12 +19,7 @@ from alembic import context
 
 # 1. 导入 Base 和所有模型，否则 Alembic 扫描不到
 from app.db.base import Base
-from app.models.user import User
-from app.models.project import Project, ProjectMember
-from app.models.document import Document
-from app.models.issue import Issue
-from app.models.vercode import VerificationCode
-from app.core.config import settings # 导入配置
+from app.core.config import settings  # 导入配置
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -89,12 +84,9 @@ def run_migrations_online() -> None:
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
-    
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

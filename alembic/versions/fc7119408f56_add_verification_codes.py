@@ -5,15 +5,13 @@ Revises: b4fdcabfa500
 Create Date: 2026-02-03 00:27:47.728066
 
 """
-from typing import Sequence, Union
 
-from alembic import op
-import sqlalchemy as sa
+from typing import Sequence, Union
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'fc7119408f56'
-down_revision: Union[str, Sequence[str], None] = 'b4fdcabfa500'
+revision: str = "fc7119408f56"
+down_revision: Union[str, Sequence[str], None] = "b4fdcabfa500"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

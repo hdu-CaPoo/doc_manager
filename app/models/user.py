@@ -13,9 +13,9 @@ class User(Base):
     nickname = Column(String)
     is_active = Column(Boolean(), default=True)
     is_superuser = Column(Boolean(), default=False)
-    avatar_url = Column(String, nullable=True) # 可以为空，默认没头像
+    avatar_url = Column(String, nullable=True)  # 可以为空，默认没头像
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-    
+
     # 关系
     projects_owned = relationship("Project", back_populates="owner")
     project_memberships = relationship("ProjectMember", back_populates="user")
