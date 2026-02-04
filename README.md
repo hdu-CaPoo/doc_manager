@@ -2,7 +2,7 @@
 
 凌云文档管理系统是一个基于 **FastAPI** 和 **Vue 3** 构建的现代化、全栈式技术文档管理平台。它旨在为团队提供安全、高效的文档存储、在线协作、问题追踪及精细化的权限管理功能。
 
-![项目展示图](path/to/your/screenshot.png) <!-- 你可以在这里放一张展示页或后台的截图 -->
+![项目展示图](<img width="2804" height="1360" alt="image" src="https://github.com/user-attachments/assets/41d9d22d-52bc-465b-8101-7ff6bddb0e73" />) <!-- 你可以在这里放一张展示页或后台的截图 -->
 
 ## ✨ 核心特性
 
@@ -50,7 +50,7 @@ python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
 # 安装依赖
-pip install -r /app/requirements.txt
+pip install -r requirements.txt
 
 # 配置环境变量 (参考 .env.example)
 cp .env.example .env
