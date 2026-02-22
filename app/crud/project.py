@@ -15,6 +15,10 @@ def create_project(db: Session, project_in: ProjectCreate, owner_id: int):
     code = generate_invitation_code()
     # 哪怕只有亿分之一的概率重复，也要处理一下（此处略简，生产环境可以用 while 循环检查）
 
+    # 创建新的项目的记录
+
+    # 变更拥有者
+
     # 1. 创建 Project 对象
     db_project = Project(
         name=project_in.name,

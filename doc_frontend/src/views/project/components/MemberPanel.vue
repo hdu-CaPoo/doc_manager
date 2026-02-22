@@ -141,7 +141,7 @@ const getRoleLabel = (row) => {
 const fetchMembers = async () => {
   loading.value = true
   try {
-    members.value = await request.get(`/members/${props.projectId}`)
+    members.value = await request.get(`/teams/${props.projectId}`)
   } finally {
     loading.value = false
   }
@@ -158,8 +158,8 @@ const handleKick = (row) => {
     confirmButtonText: '移除',
     confirmButtonClass: 'el-button--danger'
   }).then(async () => {
-    // API: DELETE /members/{project_id}/{user_id} [1]
-    await request.delete(`/members/${props.projectId}/${row.user_id}`)
+    // API: DELETE /teams/{project_id}/{user_id} [1]
+    await request.delete(`/teams/${props.projectId}/${row.user_id}`)
     ElMessage.success('成员已移除')
     fetchMembers()
   })
@@ -167,8 +167,8 @@ const handleKick = (row) => {
 // 改权限
 const handleChangeRole = async (row, newRole) => {
   try {
-    // API: POST /members/{project_id}/change_role/{user_id}?new_role=xxx [1]
-    await request.post(`/members/${props.projectId}/change_role/${row.user_id}`, null, {
+    // API: POST /teams/{project_id}/change_role/{user_id}?new_role=xxx [1]
+    await request.post(`/teams/${props.projectId}/change_role/${row.user_id}`, null, {
       params: { new_role: newRole }
     })
     ElMessage.success('权限修改成功')
@@ -186,8 +186,8 @@ const handleLeave = () => {
     type: 'warning'
   }).then(async () => {
     try {
-      // 调用后端 API: POST /members/{project_id}/leave [1]
-      await request.post(`/members/${props.projectId}/leave`)
+      // 调用后端 API: POST /teams/{project_id}/leave [1]
+      await request.post(`/teams/${props.projectId}/leave`)
       ElMessage.success('已退出项目')
       // 退出后跳转回首页
       router.push('/app')

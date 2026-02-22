@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 from app.models.project import Project, ProjectMember
-from app.models.user import User
 
 # 1. 根据邀请码找项目
 def get_project_by_code(db: Session, code: str):
@@ -37,19 +36,18 @@ def remove_member(db: Session, db_member: ProjectMember):
 
 # 6. 更改用户权限（项目管理员/普通用户）
 def change_member_role(db: Session, db_member: ProjectMember, new_role: str):
-    db_member.role = new_role
+    db_member.role = new_role #type: ignore
     db.commit()
     db.refresh(db_member)
     return db_member
 
 # 7. 变更拥有者
 def change_owner(db: Session, origional_owner: ProjectMember, new_owner: ProjectMember):
-    origional_owner.role = "member"
-    new_owner.role = "owner" # 如果你确定要用 "owner" 这个字符串
+    origional_owner.role = "member" #type: ignore
+    new_owner.role = "owner" #type: ignore
     
     # 2. 修改 Project 表的 owner_id
     # 注意：我们要改的是 origional_owner 关联的那个 project 对象
-    # 前提是 ProjectMember 模型里有 `project = relationship(...)`
     origional_owner.project.owner_id = new_owner.user_id 
     
     # 3. 提交

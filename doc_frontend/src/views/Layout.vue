@@ -173,8 +173,8 @@ const handleJoinProject = async () => {
   if (!joinForm.invitation_code) return ElMessage.warning('请输入邀请码')
   
   try {
-    // 调用 POST /members/join 接口 [1]
-    await request.post('/members/join', { 
+    // 调用 POST /teams/join 接口 [1]
+    await request.post('/teams/join', { 
         invitation_code: joinForm.invitation_code 
     })
     

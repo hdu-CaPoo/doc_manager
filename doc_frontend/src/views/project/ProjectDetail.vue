@@ -99,7 +99,7 @@ const fetchData = async () => {
     const [resProject, resUser, resMembers] = await Promise.all([
       request.get(`/projects/${projectId}`),
       request.get('/auth/me'),
-      request.get(`/members/${projectId}`)
+      request.get(`/teams/${projectId}`)
     ])
     
     project.value = resProject

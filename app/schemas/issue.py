@@ -46,10 +46,8 @@ class IssueOut(BaseModel):
     status: str
     priority: str
     created_at: datetime
-        # 新增这个字段，默认是空列表
+
     comments: List[CommentOut] = [] 
 
-    class Config:
-        orm_mode = True
     class Config:
         orm_mode = True

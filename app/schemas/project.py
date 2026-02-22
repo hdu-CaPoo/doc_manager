@@ -1,7 +1,6 @@
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime
-from app.schemas.user import UserOut # 我们可能需要返回项目的所有者信息
 
 # 1. 基础模型 (共享字段)
 class ProjectBase(BaseModel):
@@ -14,7 +13,7 @@ class ProjectCreate(ProjectBase):
 
 # 3. 更新时需要的字段
 class ProjectUpdate(ProjectBase):
-    name: Optional[str] = None # 都是可选的
+    name: Optional[str] = None #type: ignore
 
 # 4. 返回给前端的字段
 class ProjectOut(ProjectBase):

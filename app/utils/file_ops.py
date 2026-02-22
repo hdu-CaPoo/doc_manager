@@ -4,12 +4,12 @@ import shutil
 import hashlib
 from fastapi import UploadFile
 
-# --- 修改这里：统一变量名为 UPLOAD_ROOT ---
+# --- 统一变量名为 UPLOAD_ROOT ---
 UPLOAD_ROOT = "uploads" 
 AVATAR_ROOT = "uploads/avatars"
 
 # 确保根目录存在
-# --- 修改这里：使用 UPLOAD_ROOT ---
+# --- 使用 UPLOAD_ROOT ---
 if not os.path.exists(UPLOAD_ROOT):
     os.makedirs(UPLOAD_ROOT)
 
@@ -19,7 +19,6 @@ def save_upload_file(upload_file: UploadFile, project_id: int) -> str:
     """
     # 1. 构建该项目的专属目录路径
     # 例如: uploads/1/
-    # --- 这里就不会报错了 ---
     project_dir = os.path.join(UPLOAD_ROOT, str(project_id))
     
     # 2. 如果目录不存在，创建它

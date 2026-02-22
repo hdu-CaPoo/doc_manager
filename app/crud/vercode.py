@@ -37,7 +37,7 @@ def verify_code(db: Session, email: str, code: str, type_str: str):
     
     if db_code:
         # 验证成功后，标记为已使用
-        db_code.is_used = True
+        db_code.is_used = True #type: ignore
         db.commit()
         return True
     return False

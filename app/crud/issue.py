@@ -1,7 +1,4 @@
 from sqlalchemy.orm import Session
-from app.models.project import Project, ProjectMember
-from app.models.user import User
-from app.models.document import Document
 from app.models.issue import Issue, IssueComment
 
 # 1. 创建新提问
@@ -27,7 +24,7 @@ def create_issue(
     return db_issue
 
 # 2. 获取项目的所有提问
-def get_issues_by_project(db: Session, project_id: int, status: str = None):
+def get_issues_by_project(db: Session, project_id: int, status: str):
     if status:
         return db.query(Issue).filter(Issue.project_id == project_id, Issue.status == status).all()
     else:
@@ -37,13 +34,13 @@ def get_issues_by_project(db: Session, project_id: int, status: str = None):
 def update_issue(
     db: Session,
     db_issue: Issue,
-    new_status: str = None,
-    new_content: str = None
+    new_status: str,
+    new_content: str
 ):
     if new_status:
-        db_issue.status = new_status
+        db_issue.status = new_status #type: ignore
     if new_content:
-        db_issue.content = new_content
+        db_issue.content = new_content #type: ignore
     db.add(db_issue)
     db.commit()
     db.refresh(db_issue)

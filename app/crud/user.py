@@ -31,12 +31,12 @@ def create_user(db: Session, user: UserCreate):
     return db_user
 
 def authenticate(db: Session, email: str, password: str):
-    # 1. 先查有没有这个邮箱
+    # 1. 先查邮箱
     user = get_user_by_email(db, email=email)
     if not user:
         return None
-    # 2. 再查密码对不对
-    if not verify_password(password, user.hashed_password):
+    # 2. 再查密码是否正确
+    if not verify_password(password, user.hashed_password): #type: ignore
         return None
     return user
 
@@ -44,16 +44,15 @@ def get_user_by_id(db: Session, user_id: int):
     return db.query(User).filter(User.id == user_id).first()
 
 def update_password(db: Session, db_user: User, new_password: str):
-    # 这一步非常重要：必须加密！
     hashed_password = get_password_hash(new_password)
-    db_user.hashed_password = hashed_password
+    db_user.hashed_password = hashed_password #type: ignore
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     return db_user
 
 def update_avatar(db: Session, db_user: User, avatar_path: str):
-    db_user.avatar_url = avatar_path
+    db_user.avatar_url = avatar_path #type: ignore
     db.add(db_user)
     db.commit()
     db.refresh(db_user)

@@ -6,6 +6,9 @@ from typing import Optional
 class DocumentBase(BaseModel):
     pass # 上传时主要靠 Form Data，这里暂时为空
 
+class ContentUpdate(BaseModel):
+    content: str
+
 # 2. 返回给前端的信息
 class DocumentOut(DocumentBase):
     id: int
